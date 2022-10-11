@@ -19,31 +19,44 @@ const { width, height, fontScale } = Dimensions.get('window');
 
 export default function LoginUm({navigation}) {
 
-    function onPress(email, senha) {
+    async function onPress(email, senha) {
+
         if (email == '') {
             setErrorEmail(true);
+            return;
         }
-
         if (senha == '') {
             setErrorSenha(true);
+            return;
         }
 
-        console.log(email,senha);
-        
-        // fetch(HOST+'login', {
-        //         method: 'POST',
-        //         body: JSON.stringify({
-        //             user: email,
-        //             passw: senha,
-        //         }),
-        //         headers: {
-        //             'Content-type': 'application/json; charset=UTF-8',
-        //         },
-        //     })
-        //     .then((response) => response.json())
-        //     .then((json) => setResult(json.result));
+        uri = HOST + 'user/login';
 
-        navigation.navigate('LoginDois')
+        await fetch(uri, {
+        method: 'POST',
+        body: JSON.stringify({
+            email: email,
+            password: senha,
+        }),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+        })
+        .then((response) => response.json())
+        .then((json) => {
+            data = json['data'];
+            message = json['message'];
+        })
+        .catch( error => {
+            console.log("Error LoginUm - " + error.message);
+        });
+
+        if (message == 'Login realizado') {
+            navigation.navigate('LoginDois')
+        } else {
+            alert(message)
+        }
+
     }
 
     function onChangeEmail (value) {
