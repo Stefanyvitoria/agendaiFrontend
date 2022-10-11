@@ -7,7 +7,8 @@ import {
     ImageBackground, 
     Text, 
     StatusBar,
-    Dimensions
+    Dimensions,
+    ScrollView
     } 
 from "react-native";
 import colors, {currentTheme} from "../Constantes";
@@ -33,15 +34,17 @@ export default function WelcomeScreen({navigation}) {
 
             <View style={styles.card}>
 
-                <View style={styles.texts} >
-                    <Text style= {styles.title}>Bem vindo ao AgendAí!</Text>
-                    <Text style= {styles.subtitle}>Seu aplicativo de agendamentos.</Text>
-                    <Text style={styles.text}>Aqui você pode consultar os serviços estéticos próximos à você e realizar agendamentos.</Text>
-                </View>
+                <ScrollView>
+                    <View>
+                        <Text style= {styles.title}>Bem vindo ao AgendAí!</Text>
+                        <Text style= {styles.subtitle}>Seu aplicativo de agendamentos.</Text>
+                        <Text style={styles.text}>Aqui você pode consultar os serviços estéticos próximos à você e realizar agendamentos.</Text>
+                    </View>
 
-                <View style={styles.button}>
-                    <PrimaryButton text={'Comece agora mesmo!'} marginHorizontal={10} onPress={() => navigation.navigate("LoginUm")} />
-                </View>
+                    <View style={styles.button}>
+                        <PrimaryButton text={'Comece agora mesmo!'} marginHorizontal={10} onPress={() => navigation.navigate("LoginUm")} />
+                    </View>
+                </ScrollView>
 
             </View>
         </View>
@@ -66,6 +69,7 @@ const styles = StyleSheet.create({
     },
     card : {
         flex : 1,
+        
         backgroundColor : 'white',
         paddingTop : 50,
         paddingHorizontal: 50,
@@ -89,10 +93,7 @@ const styles = StyleSheet.create({
         color : colors.color1,
         fontFamily: 'Fredoka-Medium',
     },
-    texts : {
-        flex: 3,
-    },
     button: {
-        flex: 2,
+        marginTop : RFPercentage(5),
     },
 });

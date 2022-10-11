@@ -71,7 +71,9 @@ export default function LoginUm({navigation}) {
             <Text style={styles.title}>LOGIN</Text>
 
             <View style={styles.componentes}>
-                <Text style={styles.text}>{result}</Text>
+                
+                {/* <Text style={styles.text}>{result}</Text> */}
+
                 <Text style={styles.text}>Email</Text>
                 <TextInput style={errorEmail ? styles.inputError :styles.input} 
                         placeholder={"YourEmail@Dominio.com"} 

@@ -22,9 +22,10 @@ export default function BottomBar({setTabAtual, tabList}) {
 
   return (
     <View style={styles.container}>
-      {tabList.map(item => {
+      {tabList.map((item, index) => {
         return (
           <TouchableOpacity
+            key={index}
             style={styles.tab}
             onPress={() => onPressTab(item.name)}>
             <Text
