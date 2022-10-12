@@ -4,6 +4,7 @@ import {
     View,
     Image,
     ImageBackground,
+    SafeAreaView,
     Text, 
     StatusBar,
     Dimensions,
@@ -14,6 +15,7 @@ import colors, {currentTheme} from "../Constantes";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import BottomBar from "../bottomBar/BottomBar";
+import CardRelatorio from "../cardRelatorio/cardRelatorio"
 
 
 const { width, height, fontScale } = Dimensions.get('window');
@@ -127,9 +129,22 @@ function body (tabAtual) {
       } else {
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>Relatorio</Text>
-
-             </View>
+                <View style={styles.row}>
+                <View style={styles.containerRelatorioTop}>
+                    <Text style={styles.tituloRelatorios}>Relatorios Mensais</Text>
+                    <Text style={{marginLeft: width*0.45, marginTop: height*0.02,color: colors.color1, fontFamily: 'Fredoka-Regular',
+        fontSize:RFPercentage(2)}}>2022</Text>
+                    <CardRelatorio mesCortado='JAN' mes='Janeiro'>
+                    </CardRelatorio>
+                    <CardRelatorio mesCortado='FEV' mes='Fevereiro'>
+                    </CardRelatorio>
+                    <CardRelatorio mesCortado='MAR' mes='Março'>
+                    </CardRelatorio>
+                    <CardRelatorio mesCortado='ABR' mes='Abril'>
+                    </CardRelatorio>
+                </View>
+                </View>
+            </View>
           );
           return 
       }
@@ -188,5 +203,18 @@ const styles = StyleSheet.create({
     },
     containerPerfilTop : {
         flex : 1,
-    }
+    },
+    containerRelatorioTop : {
+        flex: 1,
+        backgroundColor: '#2F4858',
+        width: '100%',
+        height: '10%'
+    },
+    tituloRelatorios : {
+        marginTop: height*0.045,
+        marginLeft: width*0.25,
+        color: colors.color5,
+        fontFamily: 'Fredoka-Bold',
+        fontSize:RFPercentage(3)
+    },
 });
