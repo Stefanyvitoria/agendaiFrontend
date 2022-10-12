@@ -12,12 +12,86 @@ from "react-native";
 import colors, {currentTheme} from "../Constantes";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-
+import { HOST } from '@env';
 
 
 const { width, height, fontScale } = Dimensions.get('window');
 
-export default function CadastroDois({navigation}) {
+export default function CadastroDois({navigation, route}) {
+
+    const [localizacao, setLocalizacao] = useState("");
+    const [contato, setContato] = useState("");
+    const [dt_nascimento, setDt_nascimento] = useState("");
+
+    const [errorLocalizacao, setErrorLocalizacao] = useState(false);
+    const [errorContato, setErrorContato] = useState(false);
+    const [errorDt_nascimento, setErrorDt_nascimento] = useState(false);
+
+    function onChangeLocalizacao (value) {
+        setErrorLocalizacao(false);
+        setLocalizacao(value)
+    }
+
+    function onChangeContato (value) {
+        setErrorContato(false);
+        setContato(value)
+    }
+
+    function onChangeDt_nascimento (value) {
+        setErrorDt_nascimento(false);
+        setDt_nascimento(value);
+    }
+
+    async function onPress () {
+
+        if (localizacao == "") {
+            setErrorLocalizacao(true);
+            return;
+        }
+        
+        if (contato == "") {
+            setErrorContato(true);
+            return;
+        }
+        
+        if (dt_nascimento == "") {
+            setErrorDt_nascimento(true);
+            return;
+        }
+
+        data = Object.assign({}, 
+            route.params,
+            {
+            localizacao : localizacao,
+            contato : contato, 
+            dt_nascimento : dt_nascimento,
+            }
+        );
+
+        
+        uri = HOST + 'user';
+
+        await fetch(uri, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {'Content-type': 'application/json; charset=UTF-8'},
+        })
+        .then((response) => response.json())
+        .then((json) => {
+            data = json['data'];
+            message = json['message'];
+        })
+        .catch( error => {
+            console.log("Error CadastroDois - " + error.message);
+        });
+
+        if (message == 'Usuário Criado') {
+            navigation.navigate('LoginUm')
+        } else {
+            alert(message)
+        }
+    }
+
     return (
         <View style={styles.container}>
 
@@ -25,15 +99,28 @@ export default function CadastroDois({navigation}) {
 
             <View style={styles.componentes}>
             <Text style={styles.text}>Localização</Text>
-                <TextInput style={styles.input} placeholder={"Your addres"}></TextInput>
+                <TextInput 
+                    style={errorLocalizacao ? styles.inputError: styles.input} 
+                    placeholder={"Localização"}
+                    onChangeText={(value) => onChangeLocalizacao(value)}
+                ></TextInput>
 
                 <Text style={styles.text}>Contato</Text>
-                <TextInput style={styles.input} placeholder={"(00) 00000-0000"} keyboardType="email-address"></TextInput>
+                <TextInput 
+                    style={errorContato ? styles.inputError: styles.input} 
+                    placeholder={"(00) 00000-0000"} 
+                    keyboardType="numeric"
+                    onChangeText={(value) => onChangeContato(value)}
+                ></TextInput>
 
                 <Text style={styles.text}>Data de nascimento</Text>
-                <TextInput style={styles.input} placeholder={"DD/MM/AAAA"} secureTextEntry={true}></TextInput>
+                <TextInput 
+                    style={errorDt_nascimento ? styles.inputError: styles.input} 
+                    placeholder={"DD/MM/AAAA"} 
+                    onChangeText={(value) => onChangeDt_nascimento(value)}
+                ></TextInput>
 
-                <PrimaryButton text={"Avançar"} onPress={() => navigation.navigate('LoginUm')}></PrimaryButton>
+                <PrimaryButton text={"Avançar"} onPress={() => onPress() }></PrimaryButton>
 
                 <View style={styles.row}>
                     <View style={styles.linha}></View>
@@ -56,6 +143,17 @@ export default function CadastroDois({navigation}) {
 }
 
 const styles = StyleSheet.create({
+    inputError : {
+        backgroundColor : colors.color4,
+        borderRadius : 10,
+        paddingHorizontal : 18,
+        paddingVertical : 12,
+        marginTop : 5,
+        marginBottom: 15,
+        color: colors.color1,
+        borderColor : 'red',
+        borderWidth: 1,
+    },
     container : {
         flex : 1,
         justifyContent: "flex-start",

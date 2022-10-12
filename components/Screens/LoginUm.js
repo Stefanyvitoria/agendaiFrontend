@@ -52,7 +52,7 @@ export default function LoginUm({navigation}) {
         });
 
         if (message == 'Login realizado') {
-            navigation.navigate('LoginDois')
+            navigation.navigate('LoginDois', {email : email, senha : senha})
         } else {
             alert(message)
         }
@@ -61,7 +61,7 @@ export default function LoginUm({navigation}) {
 
     function onChangeEmail (value) {
         setErrorEmail(false);
-        setEmail(value)
+        setEmail(value.toLowerCase())
     }
 
     function onChangeSenha (value) {
@@ -84,8 +84,6 @@ export default function LoginUm({navigation}) {
             <Text style={styles.title}>LOGIN</Text>
 
             <View style={styles.componentes}>
-                
-                {/* <Text style={styles.text}>{result}</Text> */}
 
                 <Text style={styles.text}>Email</Text>
                 <TextInput style={errorEmail ? styles.inputError :styles.input} 

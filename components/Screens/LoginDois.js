@@ -11,7 +11,7 @@ import colors, {currentTheme} from "../Constantes";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
-export default function LoginDois({navigation}) {
+export default function LoginDois({navigation, route}) {
 
     return (
         <View style={styles.container}>
