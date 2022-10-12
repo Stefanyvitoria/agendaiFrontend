@@ -20,7 +20,6 @@ const { width, height, fontScale } = Dimensions.get('window');
 export default function LoginUm({navigation}) {
 
     async function onPress(email, senha) {
-
         if (email == '') {
             setErrorEmail(true);
             return;

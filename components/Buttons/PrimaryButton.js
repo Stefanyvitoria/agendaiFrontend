@@ -14,6 +14,7 @@ export default function appButton(props) {
             marginHorizontal : props.marginHorizontal == null ? 0 : props.marginHorizontal,
             justifyContent: 'center',
             alignItems : 'center',
+            width: props.width
         },
         text : {
             fontSize: 20,
