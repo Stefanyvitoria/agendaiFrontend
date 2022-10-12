@@ -52,7 +52,21 @@ export default function LoginUm({navigation}) {
         });
 
         if (message == 'Login realizado') {
-            navigation.navigate('LoginDois')
+            perfiLength = data['perfil'].length;
+
+            if ( perfiLength > 1) {
+                navigation.navigate('LoginDois', data);
+                return;
+            }
+
+            if ('Prestador' == data['perfil'][0]) {
+                navigation.navigate('PrestadorHome', data)
+                return;
+            }
+
+            navigation.navigate('ClienteHome', data)
+            return;
+            
         } else {
             alert(message)
         }
@@ -61,7 +75,7 @@ export default function LoginUm({navigation}) {
 
     function onChangeEmail (value) {
         setErrorEmail(false);
-        setEmail(value)
+        setEmail(value.toLowerCase())
     }
 
     function onChangeSenha (value) {
@@ -84,8 +98,6 @@ export default function LoginUm({navigation}) {
             <Text style={styles.title}>LOGIN</Text>
 
             <View style={styles.componentes}>
-                
-                {/* <Text style={styles.text}>{result}</Text> */}
 
                 <Text style={styles.text}>Email</Text>
                 <TextInput style={errorEmail ? styles.inputError :styles.input} 

@@ -12,12 +12,77 @@ from "react-native";
 import colors, {currentTheme} from "../Constantes";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-
+import SelectDropdown from 'react-native-select-dropdown'
 
 
 const { width, height, fontScale } = Dimensions.get('window');
 
 export default function CadastroUm({navigation}) {
+
+    const perfis = ["Prestador", "Cliente"];
+
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [perfil, setPerfil] = useState("");
+
+    const [errorNome, setErrorNome] = useState(false);
+    const [errorEmail, setErrorEmail] = useState(false);
+    const [errorSenha, setErrorSenha] = useState(false);
+    const [errorPerfil, setErrorPerfil] = useState(false);
+
+    function onChangeNome (value) {
+        setErrorNome(false);
+        setNome(value)
+    }
+
+    function onChangeEmail (value) {
+        setErrorEmail(false);
+        setEmail(value.toLowerCase())
+    }
+
+    function onChangeSenha (value) {
+        setErrorSenha(false);
+        setSenha(value);
+    }
+
+    function onChangePerfil (value) {
+        setErrorPerfil(false);
+        setPerfil(value);
+    }
+
+    function onPress () {
+
+        if (nome == "") {
+            setErrorNome(true);
+            return;
+        }
+        
+        if (email == "") {
+            setErrorEmail(true);
+            return;
+        }
+        
+        if (senha == "") {
+            setErrorSenha(true);
+            return;
+        }
+        
+        if (perfil == "") {
+            setErrorPerfil(true);
+            return;
+        }
+
+        data = {
+            nome : nome,
+            email : email, 
+            password : senha,
+            perfil : [perfil]
+        }
+
+        navigation.navigate('CadastroDois', data)
+    }
+
     return (
         <View style={styles.container}>
 
@@ -25,15 +90,44 @@ export default function CadastroUm({navigation}) {
 
             <View style={styles.componentes}>
             <Text style={styles.text}>Nome</Text>
-                <TextInput style={styles.input} placeholder={"Your Name"}></TextInput>
+                <TextInput 
+                    style={errorNome ? styles.inputError :styles.input} 
+                    placeholder={"Your Name"}
+                    onChangeText={(value) => onChangeNome(value)}
+                ></TextInput>
 
                 <Text style={styles.text}>Email</Text>
-                <TextInput style={styles.input} placeholder={"YourEmail@Agendai.com"} keyboardType="email-address"></TextInput>
+                <TextInput 
+                    style={errorEmail ? styles.inputError :styles.input} 
+                    placeholder={"YourEmail@Agendai.com"} 
+                    keyboardType="email-address"
+                    onChangeText={(value) => onChangeEmail(value)}
+                ></TextInput>
 
                 <Text style={styles.text}>Password</Text>
-                <TextInput style={styles.input} placeholder={"********"} secureTextEntry={true}></TextInput>
+                <TextInput 
+                    style={errorSenha ? styles.inputError :styles.input} 
+                    placeholder={"********"} 
+                    secureTextEntry={true}
+                    onChangeText={(value) => onChangeSenha(value)}
+                ></TextInput>
 
-                <PrimaryButton text={"Avançar"} onPress={() => navigation.navigate('CadastroDois')}></PrimaryButton>
+                <SelectDropdown
+                    data={perfis}
+                    defaultButtonText={"Tipo de Perfil  👆"}
+                    buttonStyle={errorPerfil ? styles.inputErrorDropdow :styles.dropdownButton}
+                    onSelect={(selectedItem, index) => {
+                        onChangePerfil(selectedItem);
+                    }}
+                    buttonTextAfterSelection={(selectedItem, index) => {
+                        return selectedItem
+                    }}
+                    rowTextForSelection={(item, index) => {
+                        return item
+                    }}
+                />
+
+                <PrimaryButton text={"Avançar"} onPress={() => onPress()}></PrimaryButton>
 
                 <View style={styles.row}>
                     <View style={styles.linha}></View>
@@ -56,6 +150,34 @@ export default function CadastroUm({navigation}) {
 }
 
 const styles = StyleSheet.create({
+    inputError : {
+        backgroundColor : colors.color4,
+        borderRadius : 10,
+        paddingHorizontal : 18,
+        paddingVertical : 12,
+        marginTop : 5,
+        marginBottom: 15,
+        color: colors.color1,
+        borderColor : 'red',
+        borderWidth: 1,
+    },
+    dropdownButton  : {
+        backgroundColor : colors.color4,
+        borderRadius : 10,
+        width : '100%',
+        marginBottom: 25,
+        marginTop : 15,
+        
+    },
+    inputErrorDropdow :{
+        backgroundColor : colors.color4,
+        borderRadius : 10,
+        width : '100%',
+        marginBottom: 25,
+        marginTop : 15,
+        borderWidth : 1,
+        borderColor : 'red',
+    },
     container : {
         flex : 1,
         justifyContent: "flex-start",
@@ -82,6 +204,7 @@ const styles = StyleSheet.create({
         paddingVertical : 12,
         marginTop : 5,
         marginBottom: 15,
+        color: colors.color1,
     },
     text : {
         color : colors.color1,
