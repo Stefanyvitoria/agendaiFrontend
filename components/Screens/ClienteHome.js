@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import BottomBar from '../bottomBar/BottomBar';
 
-export default function ClienteHome({navigation}) {
+export default function ClienteHome({navigation, route}) {
   const [tabAtual, setTabAtual] = useState('Início');
   const tabList = [
     {name: 'Início'},

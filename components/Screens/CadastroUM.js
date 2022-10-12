@@ -38,7 +38,7 @@ export default function CadastroUm({navigation}) {
 
     function onChangeEmail (value) {
         setErrorEmail(false);
-        setEmail(value)
+        setEmail(value.toLowerCase())
     }
 
     function onChangeSenha (value) {
@@ -77,7 +77,7 @@ export default function CadastroUm({navigation}) {
             nome : nome,
             email : email, 
             password : senha,
-            perfil : perfil
+            perfil : [perfil]
         }
 
         navigation.navigate('CadastroDois', data)

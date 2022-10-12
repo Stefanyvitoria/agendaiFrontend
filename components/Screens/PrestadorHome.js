@@ -136,7 +136,7 @@ function body (tabAtual) {
 };
   
 
-export default function PrestadorHome({navigation}) {
+export default function PrestadorHome({navigation, route}) {
 
     const [tabAtual, setTabAtual]= useState('Perfil');
     const tabList = [{name:'Perfil'},{name:'Agenda'},{name:'Historico'},{name:'Relatorio'}];

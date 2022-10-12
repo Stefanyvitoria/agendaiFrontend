@@ -52,7 +52,21 @@ export default function LoginUm({navigation}) {
         });
 
         if (message == 'Login realizado') {
-            navigation.navigate('LoginDois', {email : email, senha : senha})
+            perfiLength = data['perfil'].length;
+
+            if ( perfiLength > 1) {
+                navigation.navigate('LoginDois', data);
+                return;
+            }
+
+            if ('Prestador' == data['perfil'][0]) {
+                navigation.navigate('PrestadorHome', data)
+                return;
+            }
+
+            navigation.navigate('ClienteHome', data)
+            return;
+            
         } else {
             alert(message)
         }
