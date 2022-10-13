@@ -414,7 +414,7 @@ function body(navigation,tabAtual, ano, setAno, mes, setMes, dia, setDia) {
               width={'90%'}
               text="Favoritos"
               onPress={() => {
-                null;
+                navigation.navigate('Favoritos');
               }}
             />
             <PrimaryButton

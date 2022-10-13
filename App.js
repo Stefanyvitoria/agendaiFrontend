@@ -12,6 +12,7 @@ import CadastroDois from './components/Screens/CadastroDois';
 import PrestadorHome from './components/Screens/PrestadorHome';
 import ClienteHome from './components/Screens/ClienteHome';
 import ConfiguracaoPrestador from './components/Screens/ConfiguracoesPrestador';
+import Favoritos from './components/Screens/Favoritos';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ export default function App() {
                 <Stack.Screen name="PrestadorHome" component={PrestadorHome} options={{headerShown: false }}/>
                 <Stack.Screen name="PrestadorConfiguracao" component={ConfiguracaoPrestador} options={{headerShown: false }}/>
                 <Stack.Screen name="ClienteHome" component={ClienteHome} options={{headerShown: false }}/>
+                <Stack.Screen name="Favoritos" component={Favoritos} options={{headerShown: false }}/>
             </Stack.Navigator>
 
         </NavigationContainer>
