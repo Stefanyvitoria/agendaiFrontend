@@ -34,7 +34,7 @@ function getDiasMes(month, year) {
     return days;
 }
 
-function body (tabAtual, ano, setAno, mes, setMes, dia, setDia) {
+function body (navigation,tabAtual, ano, setAno, mes, setMes, dia, setDia) {
 
     const uri = 'https://img.freepik.com/free-photo/handsome-man-cutting-beard-barber-shop-salon_1303-20932.jpg?w=2000'; // Recuperar do banco de dados
 
@@ -45,9 +45,9 @@ function body (tabAtual, ano, setAno, mes, setMes, dia, setDia) {
                         <ImageBackground style={styles.containerPerfilTop} resizeMode="cover" imageStyle={{opacity: 0.6}} source={{
                             uri: uri,}}>
                                 <View style={styles.row}>
-                                    <View style={{flex: 1, alignItems: 'center', paddingTop: 20}}>
+                                    <TouchableOpacity onPress={() => navigation.navigate("PrestadorConfiguracao")} style={{flex: 1, alignItems: 'center', paddingTop: 20}}>
                                         <Image style={{width: 30, height: 30}} source={require('../../assets/images/configuração.png')}></Image>
-                                    </View>
+                                    </TouchableOpacity>
 
                                     <View style={{alignItems: 'center', justifyContent: 'center',color: 'black', flex : 2, height: '100%', width : '100%'}}>
                                         <Image style={{borderRadius: 50,width: 100, height: 100}} source={{uri :uri}}></Image>
@@ -354,7 +354,7 @@ export default function PrestadorHome({navigation, route}) {
 
     return (
         <View style={styles.main}>
-            {body(tabAtual, ano, setAno, mes, setMes, dia, setDia)}
+            {body(navigation,tabAtual, ano, setAno, mes, setMes, dia, setDia)}
             <BottomBar setTabAtual={setTabAtual} tabList={tabList}></BottomBar>
         </View>
     );
