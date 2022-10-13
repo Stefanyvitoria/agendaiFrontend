@@ -14,6 +14,7 @@ import BottomBar from '../bottomBar/BottomBar';
 import {RFPercentage} from 'react-native-responsive-fontsize';
 import PrimaryButton from '../Buttons/PrimaryButton';
 import colors from '../Constantes'
+import { HOST } from '@env';
 
 const { width, height, fontScale } = Dimensions.get('window');
 
@@ -43,15 +44,39 @@ export default function ClienteHome({navigation, route}) {
     {name: 'Perfil'},
   ];
 
+  // console.log(route.params);
+  // uri1 = HOST + 'cliente';
+  // await fetch(uri1, {
+  // method: 'POST',
+  // body: JSON.stringify(
+  //   route.params
+  // ),
+  // headers: {
+  //     'Content-type': 'application/json; charset=UTF-8',
+  // },
+  // })
+  // .then((response) => response.json())
+  // .then((json) => {
+  //     data1 = json['data'];
+  //     message1 = json['message'];
+  // })
+  // .catch( error => {
+  //     console.log("Error LoginUm - " + error.message);
+  // });
+
+  // console.log('ok***');
+  // console.log(message1);
+  // return;
+
   return (
     <View style={styles.main}>
-        {body(navigation,tabAtual, ano, setAno, mes, setMes, dia, setDia)}
+        {body(navigation,tabAtual, ano, setAno, mes, setMes, dia, setDia, route)}
         <BottomBar setTabAtual={setTabAtual} tabList={tabList}></BottomBar>
     </View>
 );
 }
-function body(navigation,tabAtual, ano, setAno, mes, setMes, dia, setDia) {
-    var [searchCategorySelect, setSearchCategorySelect] = useState(true);
+function body(navigation,tabAtual, ano, setAno, mes, setMes, dia, setDia, route) {
+  var [searchCategorySelect, setSearchCategorySelect] = useState(true);
   const uri =
     'https://img.freepik.com/free-photo/handsome-man-cutting-beard-barber-shop-salon_1303-20932.jpg?w=2000'; // Recuperar do banco de dados
 
