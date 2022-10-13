@@ -11,6 +11,7 @@ import CadastroUm from './components/Screens/CadastroUM';
 import CadastroDois from './components/Screens/CadastroDois';
 import PrestadorHome from './components/Screens/PrestadorHome';
 import ClienteHome from './components/Screens/ClienteHome';
+import ConfiguracaoPrestador from './components/Screens/ConfiguracoesPrestador';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ export default function App() {
                 <Stack.Screen name="CadastroUm" component={CadastroUm} options={{headerShown: false }}/>
                 <Stack.Screen name="CadastroDois" component={CadastroDois} options={{headerShown: false }}/>
                 <Stack.Screen name="PrestadorHome" component={PrestadorHome} options={{headerShown: false }}/>
+                <Stack.Screen name="PrestadorConfiguracao" component={ConfiguracaoPrestador} options={{headerShown: false }}/>
                 <Stack.Screen name="ClienteHome" component={ClienteHome} options={{headerShown: false }}/>
             </Stack.Navigator>
 

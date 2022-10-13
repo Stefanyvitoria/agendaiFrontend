@@ -20,7 +20,6 @@ const { width, height, fontScale } = Dimensions.get('window');
 export default function LoginUm({navigation}) {
 
     async function onPress(email, senha) {
-
         if (email == '') {
             setErrorEmail(true);
             return;
@@ -119,7 +118,7 @@ export default function LoginUm({navigation}) {
                     <Text style={styles.subText}>Manter Conectado</Text>
                 </View>
 
-                <PrimaryButton text={"Avançar"} onPress={() => navigation.navigate('LoginDois')}></PrimaryButton>
+                <PrimaryButton text={"Avançar"} onPress={() => navigation.navigate('ClienteHome')}></PrimaryButton>
 
                 <TouchableOpacity onPress={() => navigation.navigate('EsqueceuSenha')}>
                     <Text style={Object.assign({},styles.subText, styles.senha)}>Esqueceu a asenha?</Text>
