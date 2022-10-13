@@ -34,7 +34,7 @@ function getDiasMes(month, year) {
     return days;
 }
 
-function body (navigation,tabAtual, ano, setAno, mes, setMes, dia, setDia) {
+function body (navigation,tabAtual, ano, setAno, mes, setMes, dia, setDia, route) {
 
     const uri = 'https://img.freepik.com/free-photo/handsome-man-cutting-beard-barber-shop-salon_1303-20932.jpg?w=2000'; // Recuperar do banco de dados
 
@@ -354,7 +354,7 @@ export default function PrestadorHome({navigation, route}) {
 
     return (
         <View style={styles.main}>
-            {body(navigation,tabAtual, ano, setAno, mes, setMes, dia, setDia)}
+            {body(navigation,tabAtual, ano, setAno, mes, setMes, dia, setDia, route)}
             <BottomBar setTabAtual={setTabAtual} tabList={tabList}></BottomBar>
         </View>
     );

@@ -21,17 +21,19 @@ import CardRelatorio from '../cardRelatorio/cardRelatorio';
 import {Calendar} from 'react-native-calendario';
 import { HOST } from '@env';
 
+const { width, height, fontScale } = Dimensions.get('window');
+
 export default function PrestadorHome({navigation,route}) {
 
     
-  async function changeInfo(name, description, location, category,phone, startDate) {
+  async function changeInfo(name, description, location, category,phone, startDate, route) {
     uri = HOST + 'user/ml/infoprestador';
 
     await fetch(uri, {
       method: 'POST',
       body: JSON.stringify({
         email: route.params['email'],
-        categoria: category.split(','),
+        categorias: category.split(','),
         descricao:description
       }),
       headers: {
@@ -78,7 +80,7 @@ export default function PrestadorHome({navigation,route}) {
             <Text style={styles.profileName}>Enterprise</Text>
           </View>
         </View>
-        <ScrollView style={{height: '60%'}}>
+        <ScrollView style={{height: height - 250}}>
           <View
             style={{alignItems: 'center', width: '100%', paddingBottom: 20}}>
             <View style={{width: '100%', alignItems: 'center'}}>
@@ -149,6 +151,7 @@ export default function PrestadorHome({navigation,route}) {
                   serviceCategory,
                   servicePhone,
                   serviceStartDate,
+                  route
                 )
               }
             />
