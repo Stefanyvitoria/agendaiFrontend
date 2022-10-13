@@ -253,9 +253,66 @@ function body (tabAtual, ano, setAno, mes, setMes, dia, setDia) {
           );
 
       } else if (tabAtual == 'Historico') {
+
+        const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+        atendimentos = [
+            {semana :"semana 01", 
+            servicos: [
+                {nome: 'Nome Serviço 1', horario: "09:00", cliente: "digo", status: 'Confirmado'},
+                {nome: 'Nome Serviço 2', horario: "09:50", cliente: "neto", status: 'A confirmar'}
+            ]},
+            {semana :"semana 02", 
+            servicos: [
+                {nome: 'Nome Serviço 1', horario: "09:00", cliente: "digo", status: 'Confirmado'},
+                {nome: 'Nome Serviço 2', horario: "09:50", cliente: "neto", status: 'A confirmar'}
+            ]}
+            
+        ];
+
           return (
-            <View style={styles.container}>
-                     <Text style={styles.text}>Historico</Text>
+            <View style={{justifyContent :'flex-start'}}>
+                <View style={styles.bottomTab}>
+                    <ScrollView style={{width:'100%', marginTop: 35}} horizontal>
+                    {meses.map((item, index )=> {
+                            return (
+                            <TouchableOpacity
+                                onPress={()=> {setMes(index+1)}}
+                                key={index}>
+                                <Text style={[styles.textPerfil, {fontFamily: index+1 == mes? "Fredoka-Bold" : "Fredoka-Regular"}]}>{item}</Text>
+                            </TouchableOpacity>
+                            );
+                    })}
+                    </ScrollView>
+                 </View>
+
+                <View>
+                {atendimentos.map((item, index) => {
+                    return (
+                        <View style={{backgroundColor : colors.color4, alignItems: 'center', marginBottom: 2}}>
+                            <Text style={{fontFamily:"Fredoka-Bold", fontSize: RFPercentage(3), color: colors.color1, marginBottom : 5}}>{item.semana}</Text>
+
+                            {item.servicos.map((item2, index2) => {
+                                return (
+                                    <TouchableOpacity  key={index2} style={{backgroundColor : colors.color1, marginHorizontal : 20, marginVertical : 5, paddingVertical: 10, paddingHorizontal: 15, borderRadius: 10, width : '90%'}}>
+                                        <Text style={{color: 'white', fontFamily :"Fredoka-Bold", fontSize:RFPercentage(3)}}>{item2.nome}</Text>
+                                        
+                                        <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
+                                            <View>
+                                                <Text style={{fontFamily: 'Fredoka-Regular', fontSize: RFPercentage(2.5)}}>{item2.cliente}</Text>
+                                                <Text style={{fontFamily: 'Fredoka-Regular', fontSize: RFPercentage(2.5), color : item2.status == 'Confirmado' ? 'green' : item2.status == 'A confirmar'? colors.color3 :'white'}}>{item2.status}</Text>
+                                            </View>
+                                            <Text style={{fontFamily: 'Fredoka-Bold', fontSize: RFPercentage(3)}}>{item2.horario}</Text>
+                                        </View>
+                                        
+                                    </TouchableOpacity>
+                                );
+                            })}
+                        </View>
+                        
+                    );
+                })}
+                </View>
 
              </View>
           );
