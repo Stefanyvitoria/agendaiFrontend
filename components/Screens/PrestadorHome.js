@@ -121,7 +121,11 @@ function body (tabAtual) {
       } else if (tabAtual == 'Historico') {
           return (
             <View style={styles.container}>
-                     <Text style={styles.text}>Historico</Text>
+                <View style={styles.row}>
+                     <View style={styles.containerRelatorioTop}>
+                     <Text style={styles.tituloHistorico}>Historico</Text>
+                     </View>
+                     </View>
 
              </View>
           );
@@ -213,6 +217,12 @@ const styles = StyleSheet.create({
     tituloRelatorios : {
         marginTop: height*0.045,
         marginLeft: width*0.25,
+        color: colors.color5,
+        fontFamily: 'Fredoka-Bold',
+        fontSize:RFPercentage(3)
+    },tituloHistorico : {
+        marginTop: height*0.045,
+        marginLeft: width*0.38,
         color: colors.color5,
         fontFamily: 'Fredoka-Bold',
         fontSize:RFPercentage(3)
