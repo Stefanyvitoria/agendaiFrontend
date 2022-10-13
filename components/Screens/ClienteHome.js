@@ -30,6 +30,32 @@ function getDiasMes(month, year) {
   return days;
 }
 
+async function get_status(route, navigation) {
+  uri1 = HOST + 'cliente';
+  await fetch(uri1, {
+  method: 'POST',
+  body: JSON.stringify(
+    route.params
+  ),
+  headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+  },
+  })
+  .then((response) => response.json())
+  .then((json) => {
+      data1 = json['data'];
+      message1 = json['message'];
+    })
+    .catch( error => {
+      console.log("Error LoginUm - " + error.message);
+    });
+    
+    if (message1 == 'Usuário não encontrado') {
+      navigation.navigate("Form01", route.params)
+    }
+
+  }
+
 export default function ClienteHome({navigation, route}) {
   const [data, setData] = useState(new Date());
   const [ano, setAno] = useState(data.getFullYear());
@@ -44,29 +70,8 @@ export default function ClienteHome({navigation, route}) {
     {name: 'Perfil'},
   ];
 
-  // console.log(route.params);
-  // uri1 = HOST + 'cliente';
-  // await fetch(uri1, {
-  // method: 'POST',
-  // body: JSON.stringify(
-  //   route.params
-  // ),
-  // headers: {
-  //     'Content-type': 'application/json; charset=UTF-8',
-  // },
-  // })
-  // .then((response) => response.json())
-  // .then((json) => {
-  //     data1 = json['data'];
-  //     message1 = json['message'];
-  // })
-  // .catch( error => {
-  //     console.log("Error LoginUm - " + error.message);
-  // });
-
-  // console.log('ok***');
-  // console.log(message1);
-  // return;
+  get_status(route, navigation)
+  
 
   return (
     <View style={styles.main}>

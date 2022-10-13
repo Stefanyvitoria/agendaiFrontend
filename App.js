@@ -23,7 +23,6 @@ export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                
                 <Stack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown: false }}/>
                 <Stack.Screen name="LoginUm" component={LoginUm} options={{headerShown: false }}/>
                 <Stack.Screen name="LoginDois" component={LoginDois} options={{headerShown: false }}/>

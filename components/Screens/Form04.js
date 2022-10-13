@@ -19,12 +19,33 @@ import { HOST } from '@env';
 
 const { width, height, fontScale } = Dimensions.get('window');
 
+async function onPress(data, navigation) {
+    uri1 = HOST + 'user/ml/infocliente';
+    await fetch(uri1, {
+    method: 'POST',
+    body: JSON.stringify(
+        data
+    ),
+    headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+    },
+    })
+    .then((response) => response.json())
+    .then((json) => {
+        data2 = json['data'];
+        message2 = json['message'];
+        })
+        .catch( error => {
+        console.log("Error Form4- " + error.message);
+        });
+        
+        navigation.navigate("ClienteHome", data);
+}
+
 export default function Form04({navigation, route}) {
 
     var [pergunta1, setPergunta1] = useState("");
     var [pergunta2, setPergunta2] = useState("");
-
-    console.log(route.params);
 
     return (
         <View style={styles.container}>
@@ -51,9 +72,7 @@ export default function Form04({navigation, route}) {
             <View style={{height : 70, justifyContent: 'center'}}>
                 <PrimaryButton text={"Próximo"} width={width - 40} onPress={() => {
                     data = Object.assign({}, route.params, {interesse :  pergunta1 , periodo: pergunta2});
-
-                    console.log(data);
-                    // navigation.navigate("Form04", data)
+                    onPress(data, navigation);
                 }}></PrimaryButton>
             </View>
         </View>
