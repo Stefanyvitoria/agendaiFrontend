@@ -7,11 +7,11 @@ const { width, height, fontScale } = Dimensions.get('window');
 
 export default function CardRelatorio({mesCortado, mes}) {
   return (
-    <View style={styles.containerRelatorio}>
+    <TouchableOpacity style={styles.containerRelatorio}>
       <View style={styles.CircleShape}>
         <Text style={styles.mesCard}>{mesCortado}</Text>
       </View>
-      <View style={styles.row}>
+      <View style={{flexDirection : 'column'}}>
       <Text style={styles.textoRelatorios}>
             Relatorios de {mes}
         </Text>
@@ -20,7 +20,7 @@ export default function CardRelatorio({mesCortado, mes}) {
         detalhados
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
