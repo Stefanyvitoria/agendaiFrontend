@@ -6,8 +6,11 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ScrollView,
 } from 'react-native';
 import BottomBar from '../bottomBar/BottomBar';
+import {RFPercentage} from 'react-native-responsive-fontsize';
+import PrimaryButton from "../Buttons/PrimaryButton";
 
 export default function ClienteHome({navigation, route}) {
   const [tabAtual, setTabAtual] = useState('Início');
@@ -20,15 +23,6 @@ export default function ClienteHome({navigation, route}) {
 
   return (
     <View style={styles.main}>
-      <View style={styles.topBar}>
-        <TouchableOpacity>
-          <Image
-            onPress={null}
-            style={styles.configButton}
-            source={require('../../assets/images/configuração.png')}
-          />
-        </TouchableOpacity>
-      </View>
       {body(tabAtual)}
       <BottomBar setTabAtual={setTabAtual} tabList={tabList} />
     </View>
@@ -41,6 +35,15 @@ function body(tabAtual) {
   if (tabAtual == 'Início') {
     return (
       <View style={styles.container}>
+        <View style={styles.topBar}>
+          <TouchableOpacity>
+            <Image
+              onPress={null}
+              style={styles.configButton}
+              source={require('../../assets/images/configuração.png')}
+            />
+          </TouchableOpacity>
+        </View>
         <View style={styles.categoriesView}>
           <FlatList
             data={Categorias}
@@ -122,7 +125,34 @@ function body(tabAtual) {
   } else {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Perfil</Text>
+        <View style={styles.profileContainer}>
+          <TouchableOpacity onPress={null} style={styles.profileEditButton}>
+            <Image source={require('../../assets/images/editar.png')} />
+          </TouchableOpacity>
+          <View
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Image
+              style={styles.profileImage}
+              resizeMode={'cover'}
+              source={require('../../assets/images/default_profile.png')}
+            />
+            <Text style={styles.profileName}>User</Text>
+          </View>
+        </View>
+        <ScrollView style={{flex: 2, width: '100%',padding: 5,overflow: 'hidden', marginBottom: RFPercentage(6.5)}}>
+            <View style={{height:'100%', justifyContent: 'space-around', alignItems : 'center'}}>
+                <PrimaryButton width={'90%'} text="Configurações" onPress={() => {null}}/>
+                <PrimaryButton width={'90%'} text="Histórico de Agendamentos" onPress={() => {null}}/>
+                <PrimaryButton width={'90%'} text="Favoritos" onPress={() => {null}}/>
+                <PrimaryButton width={'90%'} text="Desconectar" onPress={() => {null}}/>
+            </View>
+         
+
+        </ScrollView>
       </View>
     );
   }
@@ -130,7 +160,6 @@ function body(tabAtual) {
 const styles = StyleSheet.create({
   main: {
     height: '100%',
-    paddingTop: 50,
   },
   container: {
     display: 'flex',
@@ -200,12 +229,38 @@ const styles = StyleSheet.create({
     paddingLeft: 70,
   },
   serviceText: {padding: 5, color: '#336699'},
-  categoriesView: {flex: 2, paddingTop: 5},
+  categoriesView: {flex: 2, paddingTop: 55},
   categoryName: {alignSelf: 'center', color: '#336699'},
   categoryContainer: {marginHorizontal: 10},
   cupomsView: {flex: 2, width: '100%'},
   cupomContainer: {marginHorizontal: 10, alignSelf: 'center'},
   favImage: {marginRight: 10},
+  profileImage: {
+    width: 110,
+    height: 110,
+    borderColor: 'black',
+    borderWidth: 2,
+    borderRadius: 75,
+    backgroundColor: '#E5E5E5',
+  },
+  profileName: {
+    paddingTop: 10,
+    color: '#E5E5E5',
+    fontSize: 20,
+  },
+  profileEditButton: {
+    margin: 10,
+    alignSelf: 'flex-end',
+  },
+  profileContainer: {
+    backgroundColor: '#2F4858',
+    width: '100%',
+    height: 250,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  profileOption : {borderRadius: 15,backgroundColor: '#336699', width: '90%', height: 80,justifyContent: 'center', alignItems : 'center',margin: 10}
 });
 
 const Categorias = [
