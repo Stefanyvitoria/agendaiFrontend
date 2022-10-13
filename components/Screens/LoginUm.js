@@ -118,7 +118,7 @@ export default function LoginUm({navigation}) {
                     <Text style={styles.subText}>Manter Conectado</Text>
                 </View>
 
-                <PrimaryButton text={"Avançar"} onPress={() => navigation.navigate('ClienteHome')}></PrimaryButton>
+                <PrimaryButton text={"Avançar"} onPress={() => onPress(email, senha)}></PrimaryButton>
 
                 <TouchableOpacity onPress={() => navigation.navigate('EsqueceuSenha')}>
                     <Text style={Object.assign({},styles.subText, styles.senha)}>Esqueceu a asenha?</Text>
