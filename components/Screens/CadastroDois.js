@@ -65,6 +65,7 @@ export default function CadastroDois({navigation, route}) {
             localizacao : localizacao,
             contato : contato, 
             dt_nascimento : dt_nascimento,
+            tags : []
             }
         );
 
