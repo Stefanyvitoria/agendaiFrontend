@@ -12,6 +12,7 @@ import CadastroDois from './components/Screens/CadastroDois';
 import PrestadorHome from './components/Screens/PrestadorHome';
 import ClienteHome from './components/Screens/ClienteHome';
 import ConfiguracaoPrestador from './components/Screens/ConfiguracoesPrestador';
+import PrestadorEditar from './components/Screens/PrestadorEditar';
 import Form01 from './components/Screens/Form01';
 import Form02 from './components/Screens/Form02';
 import Form03 from './components/Screens/Form03';
@@ -31,6 +32,7 @@ export default function App() {
                 <Stack.Screen name="CadastroDois" component={CadastroDois} options={{headerShown: false }}/>
                 <Stack.Screen name="PrestadorHome" component={PrestadorHome} options={{headerShown: false }}/>
                 <Stack.Screen name="PrestadorConfiguracao" component={ConfiguracaoPrestador} options={{headerShown: false }}/>
+                <Stack.Screen name="PrestadorEditar" component={PrestadorEditar} options={{headerShown: false }}/>
                 <Stack.Screen name="ClienteHome" component={ClienteHome} options={{headerShown: false }}/>
                 <Stack.Screen name="Form01" component={Form01} options={{headerShown: false }}/>
                 <Stack.Screen name="Form02" component={Form02} options={{headerShown: false }}/>
