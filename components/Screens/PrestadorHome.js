@@ -7,19 +7,32 @@ import {
     Text, 
     StatusBar,
     Dimensions,
-    ScrollView
+    ScrollView,
+    TouchableOpacity,
+    FlatList
     }
 from "react-native";
 import colors, {currentTheme} from "../Constantes";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import BottomBar from "../bottomBar/BottomBar";
-
+import { Calendar } from 'react-native-calendario';
 
 const { width, height, fontScale } = Dimensions.get('window');
 
+function getDiasMes(month, year) {
+    month--;
 
-function body (tabAtual) {
+    var date = new Date(year, month, 1);
+    var days = [];
+    while (date.getMonth() === month) {
+       days.push(date.getDate());
+       date.setDate(date.getDate() + 1);
+    }
+    return days;
+}
+
+function body (tabAtual, ano, setAno, mes, setMes, dia, setDia) {
 
     const uri = 'https://img.freepik.com/free-photo/handsome-man-cutting-beard-barber-shop-salon_1303-20932.jpg?w=2000'; // Recuperar do banco de dados
 
@@ -110,9 +123,130 @@ function body (tabAtual) {
         );
 
       } else if (tabAtual == 'Agenda') {
-          return (
-            <View style={styles.container}>
-                 <Text style={styles.text}>Agenda</Text>
+
+        const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        const diasSemana = ['D','S', 'T', 'Q', 'Q', 'S', 'S'];
+        const dias = getDiasMes(mes, ano);
+        dataCalendario = new Date(ano, mes-1,'01');
+        cards = [
+            {nome: 'Nome Serviço 1', horario: "09:00", cliente: "digo", status: 'Confirmado'}, 
+            {nome: 'Nome Serviço 2', horario: "09:50", cliente: "neto", status: 'A confirmar'}
+        ];
+
+        if (dataCalendario.getDay() == 1 ) {
+            dias.unshift(0);
+        } else if (dataCalendario.getDay() == 2 ) {
+            dias.unshift(0);
+            dias.unshift(0);
+        } else if (dataCalendario.getDay() == 3 ) {
+            dias.unshift(0);
+            dias.unshift(0);
+            dias.unshift(0);
+        } else if (dataCalendario.getDay() == 4 ) {
+            dias.unshift(0);
+            dias.unshift(0);
+            dias.unshift(0);
+            dias.unshift(0);
+        } else if (dataCalendario.getDay() == 5 ) {
+            dias.unshift(0);
+            dias.unshift(0);
+            dias.unshift(0);
+            dias.unshift(0);
+            dias.unshift(0);
+        } else if (dataCalendario.getDay() == 6 ) {
+            dias.unshift(0);
+            dias.unshift(0);
+            dias.unshift(0);
+            dias.unshift(0);
+            dias.unshift(0);
+            dias.unshift(0);
+        }
+
+        return (
+            <View style={styles.containerperfil}>
+
+                 <View style={styles.bottomTab}>
+                     <Text style={styles.textPerfil}>{ano} ⇵</Text>
+                     <ScrollView style={{width:'100%', }} horizontal>
+                        {meses.map((item, index )=> {
+                                return (
+                                <TouchableOpacity
+                                    onPress={()=> {setMes(index+1)}}
+                                    key={index}>
+                                    <Text style={[styles.textPerfil, {fontFamily: index+1 == mes? "Fredoka-Bold" : "Fredoka-Regular"}]}>{item}</Text>
+                                </TouchableOpacity>
+                                );
+                        })}
+                     </ScrollView>
+                 </View>
+
+                <ScrollView style={{backgroundColor: 'white', width: width, flex: 1}}>
+
+                    <View style={{flexDirection : 'row', alignItems: "center", justifyContent: "space-evenly", marginTop : 10, paddingHorizontal:20}}>
+                        <TouchableOpacity style={{backgroundColor: colors.color4, padding: 10, borderRadius :10, flex : 1, alignItems:"center", marginRight : 15, }}>
+                            <Text style={{color: colors.color1, fontFamily : 'Fredoka-Regular'}}>Adicionar horário</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{backgroundColor: colors.color4, padding: 10, borderRadius :10, flex : 1, alignItems:"center", marginLeft : 15, }}>
+                            <Text style={{color: colors.color1, fontFamily : 'Fredoka-Regular'}}>Consultar horário</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={{backgroundColor: colors.color1, flex : 1, margin : 15, borderRadius: 15, }}>
+                        {/* // Row com dias da semana   */}
+                        <View style={{flexDirection : 'row', alignItems: "center",  marginVertical : 10}}>
+
+                        {diasSemana.map((item, index )=> {
+                                return (
+                                <View key={index} style={{margin : 1, width: (width-40)/7, alignItems : 'center'}}>
+                                    <Text style={styles.textPerfil}>{item}</Text>
+                                </View>
+                                );
+                        })}
+                        </View>
+
+                        {/* linhas dos dias das semanas */}
+                        <FlatList
+                            numColumns={7}
+                            key={(item, index) => index}
+                            data={dias}
+                            renderItem={ ({item}) => (
+                                item == 0 ?
+                                <View style={{marginVertical : 10,backgroundColor : colors.color1, width: (width-40)/7, margin : 1, alignItems : 'center'}}>
+                                </View>
+
+                                :<TouchableOpacity onPress={() => {
+                                        setDia(item);
+                                    }}
+                                    style={{marginVertical : 10,backgroundColor : colors.color1, width: (width-40)/7, margin : 1, alignItems : 'center', backgroundColor: item == dia ? colors.color6: colors.color1, borderRadius: item == dia ? 15: 0}}>
+                                    <Text style={{fontSize: RFPercentage(2), fontFamily : item == dia ? "Fredoka-Bold" : "Fredoka-Regular"}}>{item}</Text>
+                                </TouchableOpacity>
+                            )}
+                        />
+                    </View>
+
+                    <View style={{backgroundColor: 'white', width: width, flex: 1, marginBottom : 10}}>
+                        <Text style={{color: colors.color6, fontFamily :"Fredoka-Bold", fontSize:RFPercentage(3), alignSelf: 'center'}}>Agendamentos - {dia}/{mes}/{ano}}</Text>
+                    </View>
+
+                    {cards.map((item, index) => {
+                        return (
+                            <TouchableOpacity  key={index} style={{backgroundColor : colors.color1, marginHorizontal : 20, marginVertical : 5,
+                            paddingVertical: 10, paddingHorizontal: 15, borderRadius: 10}}>
+                                <Text style={{color: 'white', fontFamily :"Fredoka-Bold", fontSize:RFPercentage(3)}}>{item.nome}</Text>
+                                
+                                <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
+                                    <View>
+                                        <Text style={{fontFamily: 'Fredoka-Regular', fontSize: RFPercentage(2.5)}}>{item.cliente}</Text>
+                                        <Text style={{fontFamily: 'Fredoka-Regular', fontSize: RFPercentage(2.5), color : item.status == 'Confirmado' ? 'green' : item.status == 'A confirmar'? colors.color3 :'white'}}>{item.status}</Text>
+                                    </View>
+                                    <Text style={{fontFamily: 'Fredoka-Bold', fontSize: RFPercentage(3)}}>{item.horario}</Text>
+                                </View>
+                                
+                            </TouchableOpacity>
+                        );
+                    })}
+
+                </ScrollView>
              </View>
           );
 
@@ -137,19 +271,38 @@ function body (tabAtual) {
   
 
 export default function PrestadorHome({navigation, route}) {
-
+    // Perfil vars
+    const [data, setData] = useState(new Date());
+    const [ano, setAno] = useState(data.getFullYear());
+    const [mes, setMes] = useState(data.getMonth() +1);
+    const [dia, setDia] = useState(data.toString().split(' ')[2]);
+    
+    //BottomTap vars
     const [tabAtual, setTabAtual]= useState('Perfil');
     const tabList = [{name:'Perfil'},{name:'Agenda'},{name:'Historico'},{name:'Relatorio'}];
 
     return (
         <View style={styles.main}>
-            {body(tabAtual)}
+            {body(tabAtual, ano, setAno, mes, setMes, dia, setDia)}
             <BottomBar setTabAtual={setTabAtual} tabList={tabList}></BottomBar>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
+    textPerfil : {
+        color : 'white',
+        fontFamily :'Fredoka-Regular',
+        fontSize: RFPercentage(3),
+        paddingHorizontal : 10,
+        paddingTop : 10,
+    },
+    bottomTab : {
+        height : RFPercentage(10),
+        width : '100%',
+        backgroundColor: colors.color1,
+        alignItems : 'flex-end'
+    },
     row : {
         flexDirection : 'row',
         flex: 1,
@@ -159,6 +312,11 @@ const styles = StyleSheet.create({
     },
     main : {
         flex : 1,
+    },
+    containerperfil : {
+        flex : 1,
+        justifyContent: "flex-start",
+        alignItems : 'center',
     },
     container : {
         flex : 1,
