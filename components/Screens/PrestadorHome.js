@@ -262,12 +262,13 @@ function body (tabAtual, ano, setAno, mes, setMes, dia, setDia) {
 
       } else {
         return (
-            <View style={styles.container}>
-                <View style={styles.row}>
-                <View style={styles.containerRelatorioTop}>
+            <View style={{flex: 1}}>
+                <View style={styles.containerRelatorio}>
                     <Text style={styles.tituloRelatorios}>Relatorios Mensais</Text>
-                    <Text style={{marginLeft: width*0.45, marginTop: height*0.02,color: colors.color1, fontFamily: 'Fredoka-Regular',
-        fontSize:RFPercentage(2)}}>2022</Text>
+                </View>
+                <Text style={{marginLeft: width*0.45, marginTop: 15,color: colors.color1, fontFamily: 'Fredoka-Bold', fontSize:RFPercentage(3)}}>2022</Text>
+
+                <View >
                     <CardRelatorio mesCortado='JAN' mes='Janeiro'>
                     </CardRelatorio>
                     <CardRelatorio mesCortado='FEV' mes='Fevereiro'>
@@ -277,10 +278,8 @@ function body (tabAtual, ano, setAno, mes, setMes, dia, setDia) {
                     <CardRelatorio mesCortado='ABR' mes='Abril'>
                     </CardRelatorio>
                 </View>
-                </View>
             </View>
           );
-          return 
       }
 };
   
@@ -333,6 +332,10 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         alignItems : 'center',
     },
+    containerRelatorio : {
+        backgroundColor : colors.color1,
+        alignItems : 'center'
+    },
     container : {
         flex : 1,
         justifyContent: "center",
@@ -364,13 +367,12 @@ const styles = StyleSheet.create({
     },
     containerRelatorioTop : {
         flex: 1,
-        backgroundColor: '#2F4858',
+        backgroundColor: colors.color1,
         width: '100%',
         height: '10%'
     },
     tituloRelatorios : {
-        marginTop: height*0.045,
-        marginLeft: width*0.25,
+        marginVertical: 20,
         color: colors.color5,
         fontFamily: 'Fredoka-Bold',
         fontSize:RFPercentage(3)
