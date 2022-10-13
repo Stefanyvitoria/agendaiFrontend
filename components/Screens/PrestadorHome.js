@@ -54,9 +54,9 @@ function body (navigation,tabAtual, ano, setAno, mes, setMes, dia, setDia) {
                                         <Text style={{color: 'white',marginTop: 10, fontSize: RFPercentage(3.5), fontFamily: 'Fredoka-Bold'}}>Perfil</Text>
                                     </View>
 
-                                    <View style={{flex: 1, alignItems: 'center', paddingTop: 20}}>
+                                    <TouchableOpacity onPress={() => navigation.navigate("PrestadorEditar",route.params)} style={{flex: 1, alignItems: 'center', paddingTop: 20}}>
                                         <Image style={{width: 30, height: 30}} source={require('../../assets/images/editar.png')}></Image>
-                                    </View>
+                                    </TouchableOpacity>
 
                                 </View>
                         </ImageBackground>
